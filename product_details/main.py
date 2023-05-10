@@ -28,12 +28,5 @@ driver.get(url)
 items = WebDriverWait(driver, 10).until(
     EC.presence_of_all_elements_located((By.XPATH, '//div[contains(@data-component-type, "s-search-result")]'))
 )
-for item in items:
-    product_link = item.find_element(By.XPATH, './/a[@class="a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal"]').get_attribute("href")
-    product_name = item.find_element(By.XPATH, './/a[@class="a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal"]//span')
-
-    prod_name = product_name.text.replace("'", "'\'")
-    curs.execute(f"insert into product_list(product_title, product_link) values('{prod_name}', '{product_link}')")
-    conn.commit()
 
 driver.quit()
